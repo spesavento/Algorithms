@@ -4,7 +4,7 @@ I am using this repository to get up to speed on data structures and algorithms 
 
 #### Algorithms Specialization 
 A series of four Stanford courses offered via Coursera <br>
-1. Divide and Conquer, Sorting and Searching, and Randomized Algorithms
+1. Divide and Conquer, Sorting and Searching, and Randomized Algorithms (6.17.2021 - present)
 
 
 #### CSCI 570: Analysis of Algorithms
