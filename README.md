@@ -12,3 +12,7 @@ A series of four Stanford courses offered via Coursera <br>
 
 #### CSCI 570: Analysis of Algorithms
 I will also be taking USC's Analysis of Algorithms this summer or fall, and my coursework and notes will be stored in a CSCI_570 folder.
+
+#### Other Resources:
+[Algorithms playlist](https://www.youtube.com/watch?v=0IAPZzGSbME&list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O&ab_channel=AbdulBari) <br>
+[SWE focused content](https://www.youtube.com/c/BackToBackSWE/playlists)
