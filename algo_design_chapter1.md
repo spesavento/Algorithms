@@ -77,6 +77,8 @@ Each network can reveal two scedules (total of 2x2 = 4, but for the following if
 
 Have hopsitals h and h' rank their student preferences. Have students rank their hospital preferences.
 
+At any point in time, a student is either committed to a hospital or free. A hospital either has available positions or is full. 
+
 <span style="font-family:Courier;">
 while there is a hospital hi that has available positions:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accept the first student si on it's preference list<br>
@@ -90,8 +92,30 @@ while there is a hospital hi that has available positions:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ of available positions at hospital hi decreases by one<br> 
 </span>
 
+If there are m hospitals and n students, then the algorithm will terminate in O(mn) steps because each hospital offers a position to a student at most once, and in each iteration, some hospital offers a position to some student. The algorithm terminates when all positions (p) are filled, since they must offer one to every student and p < n. 
+<br>
+Let us argue that the assignment is stable by looking at the two forms of instability. <br>
+1) Instability 1 involves a case where s is assigned to h, but h prefers s' and s' is assigned to no hospital. This cannot happen, as if h prefers s', then h must have accepted s' first before s. In that case, s' would have accepted a position for some hospital and it would not be free (either hopsital h or it might have accepted another hospital that ranked higher for it) - a contradiction. 
+2) Instability 2 involves when s is assigned to h and s' is assigned to h'. h prefers s' to s and s' prefers h to h'. This cannot happen because if h prefers s' to s, it must have extended an offer to it before s. That means at some point s' turned down h for a hospital that was higher ranking on the its preference list. Therefore s' cannot prefer h to its current match. - this is a contradiction.
 
 ### 5) 
+>The Stable Matching Problem, as discussed in the text, assumes that all men and women have a fully ordered list of preferences. In this problem we will consider a version of the problem in which men and women can be indifferent between certain options. As before we have a set M of n men and a set W of n women. Assume each man and each woman ranks the members of the opposite gender, but now we allow ties in the ranking. For example (with n = 4), a woman could say that m1 is ranked in first place; second place is a tie between m2 and m3 (she has no preference between them); and m4 is in last place. We will say that w prefers m to m' if m is ranked higher than m' on her preference list (they are not tied). <p>
+>With indifferences in the rankings, there could be two natural notions for stability. And for each, we can ask about the existence of stable matchings, as follows.<p>
+> **a)** A strong instability in a perfect matching S consists of a man `m` and a woman `w`, such that each of `m` and `w` prefers the other to their partner in S. Does there always exist a perfect matching with no strong instability? Either give an example of a set of men and women with preference lists for which every perfect matching has a strong instability; or give an algorithm that is guaranteed to find a perfect matching with no strong instability.
+
+**Yes**. Let us break ties lexographically. If man m is indifferent between wi and wj, then say wi appears first on the preference list cause (i < j). If woman w is indifferent between mi and mj, then mi appears first on their preference list since (i < j).<br>
+Now if we run the stable matching algorihtm with these concrete preference lists, we know that this algorihtm produces a stable matching - a matching with no instabilities. 
+
+> **b)** A weak instability in a perfect matching s consists of a man m and a woman w, such that their partners in S are w' and m', respectively, and one of the following holds:
+> - `m` prefers `w` to `w'`, and `w` either prefers `m` to `m'` or is indifferent between these two choices; or
+> - `w` prefers `m` to `m'`, and `m` either prefers `w` to `w'` or is indifferent between these two choices.
+
+> In other words, the pairing between `m` and `w` is either preferred by both, or preferred by one while the other is indifferent. Does there **always** exist a perfect matching with no weak instability? Either give an example of a set of men and women with preference lists for which every perfect matching has a weak instability; or give an algorithm that is guaranteed to find a perfect matching with no weak instability.
+
+**No**. Say m prefers w to w', and also m' prefers w to w'. And w is tied between m and m', no preference. Then we could end up with the following matches:<br>
+- We end up with pairs (m, w) and (m', w'). Here m got his first pick, but m' did not. We have a case where we have a weak instability. 
+- We end up with pairs (m, w') and (m', w). Here m' got his first pick, but m did not. We have a case where we have a weak instability. 
+
 ### 6) 
 ### 7) 
 ### 8) 
