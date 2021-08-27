@@ -89,7 +89,7 @@ while there is a hospital hi that has available positions:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reject hi and remain commited to hk<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else si revokes their offer and joins hopsital hi:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# of available positions at hospital hk increases by one<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ of available positions at hospital hi decreases by one<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# of available positions at hospital hi decreases by one<br> 
 </span>
 
 If there are m hospitals and n students, then the algorithm will terminate in O(mn) steps because each hospital offers a position to a student at most once, and in each iteration, some hospital offers a position to some student. The algorithm terminates when all positions (p) are filled, since they must offer one to every student and p < n. 
@@ -117,5 +117,40 @@ Now if we run the stable matching algorihtm with these concrete preference lists
 - We end up with pairs (m, w') and (m', w). Here m' got his first pick, but m did not. We have a case where we have a weak instability. 
 
 ### 6) 
+>Peripatetic Shipping lines, Inc., is a shipping company that owns n ships and provides service to n ports. Each of its ships has a schedule that says, for each day of the month, which of the ports it's currently visiting, or whether it's out at sea. (You can assume the "month" here has m days, for some m > n.) Each ship visits each port for exactly one day during the month. For safety reasons, PSL Inc. has the following strict requirement:<p>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(t) No two ships can be in the same port on the same day.<p>
+>The company wants to perform maintenance on all the ships this month, via the following scheme. They want to truncate each ship's schedule: for each ship Si, there will be some day when it arrives in its scheduled port and simply remains there for the rest of the month (for maintenance). This means that Si will not visit the remaining ports on its schedule (if any) that month, but this is okay. So the truncation of Si's schedule will simply consist of its original schedule up to a certain specified day on which it is in a port P; the remainder of the truncated schedule simply has it remain in port P.<p>
+> Now the company's question to you is the following: Given the schedule for each ship, find a truncation of each so that condition (t) continues to hold: no two ships are ever in the same port on the same day.<p>
+> Show that such a set of truncations can always be found, and give an algorithm to find them. <p>
+> **Example.** Suppose we have two ships and two ports, and the "month" has four days. Suppose the first ship's schedule is <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>port P1; at sea; port P2; at sea</i><br>
+> and the second ship's schedule is <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>at sea; port P1; at sea; port P2 .</i><br>
+> Then the (only) way to choose truncations would be to have the first ship remain in port P2 starting on day 3, and have the second ship remain in port P1 starting on day 2.
+
+Each ship ranks the ports it visits in chronological order (first at the top). Each port ranks the ships that visit it in reverse chronological order. Here is a visualization of why we do reverse order here:<br>
+
+Ship A - port P1; at sea; port P2; at sea <br>
+Ship B - at sea; port P1; at sea; port P2 <br>
+
+Ship A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ship B<br>
+P1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P1<br>
+P2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P2 <br>
+
+P1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P2<br>
+Ship B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ship B&nbsp;&nbsp;&nbsp;&nbsp;*B coming in later after time at sea<br>
+Ship A&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ship A<br>
+
+Now, as the Stable Matching Problem goes, Ship A goes for it's top choice, P1. P1 accepts it because the port is free. Ship B comes in to it's top choice, P1. Now P1 prefers Ship B because it came in later, and Ship A tries for the second in it's list, P2. P2 accepts Ship A because it is free.
+
+We can prove that a stable matching between ships and ports defines an acceptable assingment of stopping ports. If the assignment is not acceptable, then it violates condition (t). That is, some ship Si passes through port Pk after ship Sj has already stopped there. But in this case, under our preference relation above, ship Si "prefers" Pk to its actual stopping port, and port Pk "prefers" ship Si to ship Sj. This contradicts the assumption that we chose a stable matching between ships and ports.
+
+
 ### 7) 
+>Some of your friends are working for CluNet, a builder of large commu- nication networks, and they are looking at algorithms for switching in a particular type of input/output crossbar. <p>
+>Here is the setup. There are n input wires and n output wires, each directed from a source to a terminus. Each input wire meets each output wire in exactly one distinct point, at a special piece of hardware called a junction box. Points on the wire are naturally ordered in the direction from source to terminus; for two distinct points x and y on the same wire, we say that x is <u>upstream</u> from y if x is closer to the source than y, and otherwise we say x is <u>downstream</u> from y. The order in which one input wire meets the output wires is not necessarily the same as the order in which another input wire meets the output wires. (And similarly for the orders in which output wires meet input wires.) Figure 1.8 gives an example of such a collection of input and output wires. <p>
+>Now, here's the switching component of this situation. Each input wire is carrying a distinct data stream, and this data stream must be switched onto one of the output wires. If the stream of Input i is switched onto Output j, at junction box B, then this stream passes through all junction boxes upstream from B on Input i, then through B, then through all junction boxes downstream from B on Output j. It does not matter which input data stream gets switched onto which output wire, but each input data stream must be switched onto a different output wire. Furthermore-and this is the tricky constraint-no two data streams can pass through the same junction box following the switching operation. <br>
+>Finally, here's the problem. Show that for any specified pattern in which the input wires and output wires meet each other (each pair meeting exactly once), a valid switching of the data streams can always be found-one in which each input data stream is switched onto a different output, and no two of the resulting streams pass through the same junction box. Additionally, give an algorithm to find such a valid switching.
+![Figure_1_8](Figure_1_8.png)
+
 ### 8) 
