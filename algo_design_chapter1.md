@@ -149,10 +149,55 @@ We can prove that a stable matching between ships and ports defines an acceptabl
 ### 7) 
 >Some of your friends are working for CluNet, a builder of large commu- nication networks, and they are looking at algorithms for switching in a particular type of input/output crossbar. <p>
 >Here is the setup. There are n input wires and n output wires, each directed from a source to a terminus. Each input wire meets each output wire in exactly one distinct point, at a special piece of hardware called a junction box. Points on the wire are naturally ordered in the direction from source to terminus; for two distinct points x and y on the same wire, we say that x is <u>upstream</u> from y if x is closer to the source than y, and otherwise we say x is <u>downstream</u> from y. The order in which one input wire meets the output wires is not necessarily the same as the order in which another input wire meets the output wires. (And similarly for the orders in which output wires meet input wires.) Figure 1.8 gives an example of such a collection of input and output wires. <p>
->Now, here's the switching component of this situation. Each input wire is carrying a distinct data stream, and this data stream must be switched onto one of the output wires. If the stream of Input i is switched onto Output j, at junction box B, then this stream passes through all junction boxes upstream from B on Input i, then through B, then through all junction boxes downstream from B on Output j. It does not matter which input data stream gets switched onto which output wire, but each input data stream must be switched onto a different output wire. Furthermore-and this is the tricky constraint-no two data streams can pass through the same junction box following the switching operation. <br>
+>Now, here's the switching component of this situation. Each input wire is carrying a distinct data stream, and this data stream must be switched onto one of the output wires. If the stream of Input i is switched onto Output j, at junction box B, then this stream passes through all junction boxes upstream from B on Input i, then through B, then through all junction boxes downstream from B on Output j. It does not matter which input data stream gets switched onto which output wire, but each input data stream must be switched onto a different output wire. Furthermore-and this is the tricky constraint-no two data streams can pass through the same junction box following the switching operation. <p>
 >Finally, here's the problem. Show that for any specified pattern in which the input wires and output wires meet each other (each pair meeting exactly once), a valid switching of the data streams can always be found-one in which each input data stream is switched onto a different output, and no two of the resulting streams pass through the same junction box. Additionally, give an algorithm to find such a valid switching.
 
 <img src="./Images/Figure_1_8.png" alt="drawing" width="500"/>
 
+This problem is quite similar to the previous problem with ships and ports.<br>
+An **input wire** wants its data stream to be switched as early (close to the source) as possible, in order to minimize its risk of running into another data stream that has already been switched, at the junction box. <br>
+An **output wire** wants its data stream to be switched as late (far from the source) as possible, in order to minimize its risk of running into another data stream, that has not yet been switched, at a junction box. <p>
+For our Stable Matching Problem, each wire ranks the output wires in the order it encounters them - from source to terminus. Each output wire ranks the input wires in the reverse of the order it encounters them from source to terminus. 
+<p>
+Suppose we have Input i and Output j that meet at a junction box. Then one stream originates on Input i, and the other must have switched from a different input wire, say Input k, onto Output j.<br>
+However, in this case Output j prefers Input i to Input k (since j meets i downstream from k), and Input i prefers Output j to, say, Output l (since Input i meets Output j upstream from Output l). This contradicts the assumption that we chose a stable matching between input wires and output wires.
+<p>
+Note: Creating preference lists for stable matchings will take O(n^2), as will computing the stable matching.
 
 ### 8) 
+> For this problem, we will explore the issue of truthfulness in the Stable Matching Problem and specifically in the Gale-Shapley algorithm. The basic question is: Can a man or a woman end up better off by lying about his or her preferences? More concretely, we suppose each participant has a true preference order. Now consider a woman w. Suppose w prefers man m to m', but both m and m' are low on her list of preferences. Can it be the case that by switching the order of m and m' on her list of preferences (i.e., by falsely claiming that she prefers m' to m) and running the algorithm with this false preference list, w will end up with a man m" that she truly prefers to both m and m'? (We can ask the same question for men, but will focus on the case of women for purposes of this question.)<p>
+> Resolve this question by doing one of the following two things:<p>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(a) Give a proof that, for any set of preference lists, switching the order of a pair on the list cannot improve a woman's partner in the Gale- Shapley algorithm; or<br>
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(b) Give an example of a set of preference lists for which there is a switch that 'Would improve the partner of a woman who switched preferences.
+
+Considering the following case - where w3' is the altered preference list of w3.
+|m1  | m2 | m3 | w1 | w2 | w3 | w3'|
+|--- |--- |--- |--- |--- |--- |--- |
+|w3  |w1  |w3  | m1 | m1 | m2 | m2 |
+|w1  |w3  |w1  | m2 | m2 | m1 | m3 |
+|w2  |w2  |w2  | m3 | m3 | m3 | m1 |
+
+If we ran the G-S algorithm with the true preferences, then:<br>
+- m1 would propose to w3, who would accept
+- m2 would propose to w1, who would accept
+- m3 would propose to w3, who would reject, as current partner m1 is ranked higher.
+- m3 would then propose to w1, who would reject, as current partner m2 is ranked higher. 
+- m3 would then propose to w2, who would accept. <p>
+
+In this case, w3 is partnered with m1, her second choice. 
+
+<p>
+
+Now let's run it on altered preference list of w3:
+- m1 would propose to w3', who would accept
+- m2 would propose to w1, who would accept
+- m3 would propose to w3', who would accept, as current partner m1 is ranked lower.
+- m1 would now try to propse to w1, who would accept, as current partner m2 is ranked lower.
+- m2 would now try to propose to w3', who would accept, as current partner m3 is ranked lower
+- m3 would propose to w1, who rejects in favor of current partner
+- m3 would propose to w2, who would accept.
+<p>
+In this case, w3 is partnered with m2, her first choice!
+<p>
+
+Therefore, it is **true**. By falsely switching the order of preferences, a woman may be able to get a more desirable partner. 
