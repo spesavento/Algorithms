@@ -10,7 +10,7 @@ m preference list|m’ preference list|w preference list | w’ preference list
 w | w' | m' | m |
 w'| w| m| m'  |
 
-This is **an** instance of the Stable Matching Problem which results in (m, w) and (m’, w’). There are no instabilities because both m and m’ are matched with their first preference and have no incentive to leave their current partner. However, in this stable matching, the women are not with their first preference. So there is no pair (m, w) such that m is ranked first on w’s preference list. 
+This is **an** instance of the Stable Matching Problem which results in (m, w) and (m’, w’). There are no instabilities because both m and m’ are matched with their first preference and have no incentive to leave their current partner. However, in this stable matching, the women are not with their first preference. So there is no pair (m, w) such that w is ranked first on m’s preference list and m is ranked first on w’s preference list.
 
 ### 2)
 >Decide whether you think the following statement is true or false. If it is true, give a short explanation. If it is false, give a counterexample.<p>
@@ -75,7 +75,7 @@ Each network can reveal two scedules (total of 2x2 = 4, but for the following if
 > So we basically have the Stable Matching Problem, except that (i) hospitals generally want more than one resident, and (ii) there is a surplus of medical students.
 > Show that there is always a stable assignment of students to hospitals, and give an algorithm to find one.
 
-Have hopsitals h and h' rank their student preferences. Have students rank their hospital preferences.
+Have hospitals h and h' rank their student preferences. Have students rank their hospital preferences.
 
 At any point in time, a student is either committed to a hospital or free. A hospital either has available positions or is full. 
 
@@ -96,7 +96,7 @@ If there are m hospitals and n students, then the algorithm will terminate in O(
 <br>
 Let us argue that the assignment is stable by looking at the two forms of instability. <br>
 1) Instability 1 involves a case where s is assigned to h, but h prefers s' and s' is assigned to no hospital. This cannot happen, as if h prefers s', then h must have accepted s' first before s. In that case, s' would have accepted a position for some hospital and it would not be free (either hopsital h or it might have accepted another hospital that ranked higher for it) - a contradiction. 
-2) Instability 2 involves when s is assigned to h and s' is assigned to h'. h prefers s' to s and s' prefers h to h'. This cannot happen because if h prefers s' to s, it must have extended an offer to it before s. That means at some point s' turned down h for a hospital that was higher ranking on the its preference list. Therefore s' cannot prefer h to its current match. - this is a contradiction.
+2) Instability 2 involves when s is assigned to h and s' is assigned to h'. h prefers s' to s and s' prefers h to h'. This cannot happen because if h prefers s' to s, it must have extended an offer to it before s. That means at some point s' turned down h for a hospital that was higher ranking on its preference list. Therefore s' cannot prefer h to its current match. - this is a contradiction.
 
 ### 5) 
 >The Stable Matching Problem, as discussed in the text, assumes that all men and women have a fully ordered list of preferences. In this problem we will consider a version of the problem in which men and women can be indifferent between certain options. As before we have a set M of n men and a set W of n women. Assume each man and each woman ranks the members of the opposite gender, but now we allow ties in the ranking. For example (with n = 4), a woman could say that m1 is ranked in first place; second place is a tie between m2 and m3 (she has no preference between them); and m4 is in last place. We will say that w prefers m to m' if m is ranked higher than m' on her preference list (they are not tied). <p>
