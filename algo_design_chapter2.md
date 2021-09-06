@@ -142,7 +142,29 @@ Take f(n) = 2n and g(n) = n. Then 4^n <= c * 2^(n).
 
 (c) **True**. If f(n) is O(g(n)), this means there exists a constant c such that f(n) <= c\*g(n) for all n >= n0. The following also holds: f(n)^2 <= c^2 * g(n)^2 for all n >= n0.
 
-
 ### 6)
+>Consider the following basic problem. You're given an array A consisting of n integers A[l], A[2], ... , A[n]. You'd like to output a two-dimensional n-by-n array Bin which B[i,j] (for i <j) contains the sum of array entries A[i] through A[j]-- that is, the sum A[i]+A[i+1]+....+A[j]. (The value of array entry B[i,j] is left unspecified whenever i>=j, so it doesn't matter what is output for these values.)<br>
+Here's a simple algorithm to solve this problem.
+For i=1, 2,...,n <br>
+&nbsp;&nbsp;&nbsp;For j=i+1, i+2,...,n<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add up array entries A[i] through A[j]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Store the result in B[i,j] <br>
+&nbsp;&nbsp;&nbsp;Endfor<br>
+Endfor<br>
+(a) For some function f that you should choose, give a bound of the form O(f(n)) on the running time of this algorithm on an input of size n (i.e., a bound on the number of operations performed by the algorithm).<br>
+(b) For this same function f, show that the running time of the algorithm on an input of size n is also Ω(n)). (This shows an asymptotically tight bound of Θ(f(n)) on the running time.)<br>
+(c) Although the algorithm you analyzed in parts (a) and (b) is the most natural way to solve the problem-after all, it just iterates through the relevant entries of the array B, filling in a value for each-it contains some highly unnecessary sources of inefficiency. Give a ilifferent algorithm to solve this problem, with an asymptotically better running time. In other words, you should design an algorithm with running time O(g(n)), where lim(n->inf) g(n)/f(n) = 0.
+
 ### 7)
+> There's a class of folk songs and holiday songs in which each verse consists of the previous verse, with one extra line added on. "The Twelve Days of Christmas" has this property; for example, when you get to the fifth verse, you sing about the five golden rings and then, reprising the lines from the fourth verse, also cover the four calling birds, the three French hens, the two turtle doves, and of course the partridge in the'pear tree. The Aramaic song "Had gadya" from the Passover Haggadah works like this as well, as do many other songs.<p>
+These songs tend to last a long time, despite having relatively short scripts. In particular, you can convey the words plus instructions for one of these songs by specifying just the new line that is added in each verse, without having to write out all the previous lines each time. (So the phrase "five golden rings" only has to be wTitten once, even though it will appear in verses five and onward.) <p>
+There's something asymptotic that can be analyzed here. Suppose, for concreteness, that each line has a length that is bounded by a constant c, and suppose that the song, when sung out loud, runs for n words total. Show how to encode such a song using a script that has length f(n), for a function f(n) that grows as slowly as possible.
+
+
 ### 8)
+> You're doing some stress-testing on various models of glass jars to determine the height from which they can be dropped and still not break. The setup for this experiment, on a particular type of jar, is as follows. You have a ladder with n rungs, and you want to find the highest rung from which you can drop a copy of the jar and not have it break. We call this the highest safe rung.<p>
+It might be natural to try binary search: drop a jar from the middle rung, see if it breaks, and then recursively try from rung n/4 or 3n/4 depending on the outcome. But this has the drawback that you could break a lot of jars in finding the answer.<p>
+If your primary goal were to conserve jars, on the other hand, you could try the following strategy. Start by dropping a jar from the first rung, then the second rung, and so forth, climbing one higher each time until the jar breaks. In this way, you only need a single jar-at the moment it breaks, you have the correct answer-but you may have to drop it n times (rather than log n as in the binary search solution).<p>
+So here is the trade-off: it seems you can perform fewer drops if you're willing to break more jars. To understand better how this trade- off works at a quantitative level, let's consider how to run this experiment given a fixed "budget" of k>=1 jars. In other words, you have to determine the correct answer-the highest safe rung-and can use at most k jars in doing so.<p>
+(a) Suppose you are given a budget of k = 2 jars. Describe a strategy for finding the highest safe rung that requires you to drop ajar at most f(n) times, for some function f(n) that grows slower than linearly. (In other words, it should be the case that lim(n -> inf) f(n)/n = 0.)
+(b) Now suppose you have a budget of k > 2 jars, for some given k. Describe a strategy for finding the highest safe rung using at most k jars. If fk(n) denotes the number of times you need to drop a jar according to your strategy,then the functions f1,f2,f3, ...should have the property that each grows asymptotically slower than the previous one: lim(n->inf)fk(n)/fk-1(n) = 0 for each k.
