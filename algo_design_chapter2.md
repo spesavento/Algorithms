@@ -28,7 +28,7 @@ In order to have a fair comparison, let's take the log of
 By replacing log2(n) with "z", we have:
 * 1/3 * z
 * log2(z)
-* z^(1/2) 
+* z^(1/2)
 <br>
 Let's test z = 100. We can see that (1/3) * 100 = 33.3 is much bigger than log2(100) = 6.64 and 100^(1/2) = 10 (2nd place). The final order is:
 <p> 
