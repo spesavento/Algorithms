@@ -1,4 +1,4 @@
-# I love Algorithms!
+# Algorithms
 
 I am using this repository to get up to speed on data structures and algorithms in Python.
 
